@@ -24,12 +24,13 @@ const routeTable = {
   '/bar': Bar
 }
 
-const compiledRoutes = []
-Object.keys(routeTable).forEach(key => {
+const compliedRoutes = []
+Object.keys(routeTable).forEach(path => {
   const dynamicSegments = []
-  const regex = pathToRegexp(key, dynamicSegments)
-  const component = routeTable[key]
-  compiledRoutes.push({
+  const regex = pathToRegexp(path, dynamicSegments)
+  const component = routeTable[path]
+
+  compliedRoutes.push({
     component,
     regex,
     dynamicSegments
@@ -51,25 +52,21 @@ const app = new Vue({
     let componentToRender
     let props = {}
 
-    compiledRoutes.some(route => {
+    compliedRoutes.some(route => {
       const match = route.regex.exec(path)
-      componentToRender = NotFound
       if (match) {
         componentToRender = route.component
         route.dynamicSegments.forEach((segment, index) => {
           props[segment.name] = match[index + 1]
         })
-        return true
       }
     })
 
     return h('div', [
-      h(componentToRender, { props }),
+      h(componentToRender || NotFound, { props }),
       h('a', { attrs: { href: '#foo/123' }}, 'foo 123'),
       ' | ',
       h('a', { attrs: { href: '#foo/234' }}, 'foo 234'),
-      ' | ',
-      h('a', { attrs: { href: '#bar' }}, 'bar'),
       ' | ',
       h('a', { attrs: { href: '#garbage' }}, 'garbage')
     ])

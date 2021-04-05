@@ -6,16 +6,9 @@
 
 <script>
 Vue.component('example', {
-  functional: true,
-  props: {
-    tags: {
-      type: Array,
-      validator (arr) { return !!arr.length }
-    }
-  },
-  render: (h, context) => {
-    const tags = context.props.tags
-    return h('div', context.data, tags.map((tag, index) => h(tag, index)))
+  props: ['tags'],
+  render(h) {
+    return h('div', this.tags.map(((tag, i) => h(tag, i))))
   }
 })
 

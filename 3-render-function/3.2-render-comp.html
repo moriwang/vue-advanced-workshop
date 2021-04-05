@@ -2,32 +2,27 @@
 
 <div id="app">
   <example :ok="ok"></example>
-  <button @click="ok = !ok"></button>
+  <button @click="ok = !ok">toggle</button>
 </div>
 
 <script>
 const Foo = {
-  functional: true,
   render: h => h('div', 'foo')
 }
 
 const Bar = {
-  functional: true,
   render: h => h('div', 'bar')
 }
 
 Vue.component('example', {
-  functional: true,
-  props: {
-    ok: Boolean
-  },
-  render: (h, context) => h(context.props.ok ? Foo : Bar)
+  props: ['ok'],
+  render(h) {
+    return this.ok ? h(Foo) : h(Bar)
+  }
 })
 
 new Vue({
   el: '#app',
-  data: {
-    ok: true
-  }
+  data: { ok: true }
 })
 </script>

@@ -27,16 +27,11 @@ window.addEventListener('hashchange', () => {
 const app = new Vue({
   el: '#app',
   data: {
-    url: 'foo'
+    url: window.location.hash.slice(1)
   },
   components: {
-    foo: { template: `<div>foo</div>`},
-    bar: { template: `<div>bar</div>`},
-  },
-  methods: {
-    routeTo (route) {
-      window.location.hash = route
-    }
+    foo: { template: `<div>foo</div>` },
+    bar: { template: `<div>bar</div>` }
   }
 })
 </script>

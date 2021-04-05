@@ -19,20 +19,23 @@ const Avatar = {
 }
 
 function withAvatarURL (InnerComponent) {
+  const
   return {
-    props: {
-      username: String
+    props: ['username'],
+    data() {
+      return {url: 'http://via.placeholder.com/200x200'}
     },
-    data () {
-      return {
-        url: 'http://via.placeholder.com/200x200'
-      }
+    created() {
+      fetchURL(this.username, url => {
+        this.url = url
+      })
     },
-    created () {
-      fetchURL(this.username, (url) => { this.url = url })
-    },
-    render (h) {
-      return h(InnerComponent, { props: { src: this.url } })
+    render(h) {
+      return h(InnerComponent, {
+        props: {
+          src: this.url
+        }
+      })
     }
   }
 }

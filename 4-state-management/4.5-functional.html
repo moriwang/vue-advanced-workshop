@@ -4,8 +4,7 @@
 
 <script>
 function app ({ el, model, view, actions }) {
-  const wrappedActions = {}
-
+  let wrappedActions = {}
   Object.keys(actions).forEach(key => {
     const originalAction = actions[key]
     wrappedActions[key] = () => {
@@ -18,10 +17,9 @@ function app ({ el, model, view, actions }) {
     data: {
       model
     },
-    render (h) {
+    render(h) {
       return view(h, this.model, wrappedActions)
     },
-    methods: actions
   })
 }
 
