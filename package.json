@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yyx990803/vue-advanced-workshop.git"
+    "url": "git+https://github.com/moriwang/vue-advanced-workshop.git"
   },
   "dependencies": {
     "jest": "^21.0.1",
